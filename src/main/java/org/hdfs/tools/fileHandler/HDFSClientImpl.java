@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.util.Properties;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
@@ -24,24 +25,14 @@ public class HDFSClientImpl implements HDFSClient {
 	@Before
 	public void init() throws Exception {
 		
+		Properties properties = new Properties();
+		properties.load(HDFSClientImpl.class.getClassLoader().getResourceAsStream("conf.properties"));
+		String HDFS_ADDRESS = properties.getProperty("HDFS_ADDRESS");
+		String USERNAME = properties.getProperty("USERNAME");
 		Configuration conf = new Configuration();
 		conf.set("dfs.replication","2");
 		conf.set("dfs.blocksize", "64m");
-//		conf.set("fs.defaultFS", "hdfs://hadoop111:9000/");
-		fs = FileSystem.get(new URI("hdfs://hadoop111:9000/"), conf, "root");
-		
-		
-	}
-	
-	public static void main(String[] args) throws Exception {
-		
-		Configuration conf = new Configuration();
-		conf.set("dfs.replication","2");
-		conf.set("dfs.blocksize", "64m");
-		
-//		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop111:9000/"), conf, "root");
-//		fs.copyFromLocalFile(new Path("E:/Workbench/new1.txt"), new Path("/new/newFile.txt"));
-//		fs.close();
+		fs = FileSystem.get(new URI(HDFS_ADDRESS), conf, USERNAME);
 		
 	}
 	

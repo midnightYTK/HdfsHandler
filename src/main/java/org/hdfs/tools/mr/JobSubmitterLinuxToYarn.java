@@ -1,6 +1,5 @@
 package org.hdfs.tools.mr;
 
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,36 +16,27 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 
 /**
- * 用于提交mapreduce job的客户端程序.
- * 功能：
- *   1. 封装本次job运行时所需要的必要参数
- *   2. 跟yarn进行交互，将mapreduce程序成功的启动、运行
- *  
+ * 如果封装到jar包中，使用 hadoop -jar 执行xxxx.jar
+ * ，则会自动加载本地 HADOOP_HOME 下所有的jar包和配置文件到执行的xxxx.jar的xxxx类的classpath中
  * @author TheDK
  *
  */
-public class JobSubmitter {
+public class JobSubmitterLinuxToYarn {
 	
 	public static void main (String []args) throws IOException, InterruptedException, URISyntaxException, ClassNotFoundException {
 		
 		Properties properties = new Properties();
 		properties.load(JobSubmitter.class.getClassLoader().getResourceAsStream("conf.properties"));
 		
-		// 在代码中配置JVM参数，用于给job对象来获取访问HDFS的用户身份
-		System.setProperty("HADOOP_USER_NAME", properties.getProperty("HADOOP_USER_NAME"));
-		
+		// 由于在Linux中运行，无需配置跨平台参数、yarn地址等
 		Configuration conf = new Configuration();
-		conf.set("fs.defaultFS", properties.getProperty("HDFS_ADDRESS"));
-		// 默认为local
-		conf.set("mapreduce.framework.name", properties.getProperty("mapreduce.framework.name"));
-		conf.set("yarn.resoursemanager", properties.getProperty("yarn.resoursemanager"));
-		// 配置跨平台提交参数
-		conf.set("mapreduce.app_submission.cross_platform", properties.getProperty("mapreduce.app_submission.cross_platform"));
-		
+		conf.set("fs.FileSystem", "hdfs://hadoop111:9000/");
+		conf.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
 		
 		Job job = Job.getInstance(conf);
 		// 1. 封装参数，jar所在的位置
-		job.setJar(properties.getProperty("JobJarPath"));
+		job.setJarByClass(JobSubmitterLinuxToYarn.class);
+		
 		// 2. 配置mapper reducer
 		job.setMapperClass(WordcountMapper.class);
 		job.setReducerClass(WordcountReducer.class);

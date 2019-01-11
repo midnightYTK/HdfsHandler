@@ -83,7 +83,7 @@ public class HDFSClientImpl implements HDFSClient {
 	@Test
 	public void listFile() throws Exception {
 		// 只查询文件的信息,不返回文件夹的信息
-		RemoteIterator<LocatedFileStatus> listFiles = fs.listFiles(new Path("/"), true);
+		RemoteIterator<LocatedFileStatus> listFiles = fs.listFiles(new Path ("/"), true);
 		while(listFiles.hasNext()) {
 			LocatedFileStatus status = listFiles.next();
 			System.out.println("文件权限:" + status.getPermission());

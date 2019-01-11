@@ -1,6 +1,5 @@
 package org.hdfs.tools.mr;
 
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -15,17 +14,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-
-/**
- * 用于提交mapreduce job的客户端程序.
- * 功能：
- *   1. 封装本次job运行时所需要的必要参数
- *   2. 跟yarn进行交互，将mapreduce程序成功的启动、运行
- *  
- * @author TheDK
- *
- */
-public class JobSubmitter {
+public class JobSubmitterFromWindowsToYarn {
 	
 	public static void main (String []args) throws IOException, InterruptedException, URISyntaxException, ClassNotFoundException {
 		
@@ -45,8 +34,10 @@ public class JobSubmitter {
 		
 		
 		Job job = Job.getInstance(conf);
+		
 		// 1. 封装参数，jar所在的位置
 		job.setJar(properties.getProperty("JobJarPath"));
+		
 		// 2. 配置mapper reducer
 		job.setMapperClass(WordcountMapper.class);
 		job.setReducerClass(WordcountReducer.class);

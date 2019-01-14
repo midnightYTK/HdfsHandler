@@ -1,5 +1,7 @@
 package org.hdfs.tools.mr;
 
+import java.io.File;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -28,10 +30,16 @@ public class JobSubmitterAtWindowsLocal {
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
 		
-		FileInputFormat.setInputPaths(job, new Path("f:/mrdata/wordcount/input"));
-		FileOutputFormat.setOutputPath(job, new Path("f:/mrdata/wordcount/output"));
+		File file = new File("E:/Workbench/mrdata/wordcount/output");
+		if( file.exists() ) {
+			file.delete();
+		}
 		
-		job.setNumReduceTasks(3);
+		
+		FileInputFormat.setInputPaths(job, new Path("E:/Workbench/mrdata/wordcount/input"));
+		FileOutputFormat.setOutputPath(job, new Path("E:/Workbench/mrdata/wordcount/output"));
+		
+		job.setNumReduceTasks(1);
 		
 		boolean res = job.waitForCompletion(true);
 		System.exit(res?0:1);

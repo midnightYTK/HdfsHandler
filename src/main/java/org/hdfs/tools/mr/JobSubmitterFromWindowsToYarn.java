@@ -53,10 +53,10 @@ public class JobSubmitterFromWindowsToYarn {
 		conf.set("mapreduce.app_submission.cross_platform", crossPlatformOrNot);
 		
 		
-		conf.addResource("core-site.xml");
-        conf.addResource("hdfs-site.xml");
-        conf.addResource("mapred-site.xml");
-        conf.addResource("yarn-site.xml");
+		conf.addResource("conf/core-site.xml");
+        conf.addResource("conf/hdfs-site.xml");
+        conf.addResource("conf/mapred-site.xml");
+        conf.addResource("conf/yarn-site.xml");
 		
 		
 		Job job = Job.getInstance(conf);

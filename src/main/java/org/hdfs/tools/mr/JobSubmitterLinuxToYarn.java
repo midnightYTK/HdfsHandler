@@ -26,12 +26,15 @@ public class JobSubmitterLinuxToYarn {
 	public static void main (String []args) throws IOException, InterruptedException, URISyntaxException, ClassNotFoundException {
 		
 		Properties properties = new Properties();
-		properties.load(JobSubmitter.class.getClassLoader().getResourceAsStream("conf.properties"));
+		properties.load(JobSubmitterLinuxToYarn.class.getClassLoader().getResourceAsStream("conf.properties"));
 		
 		// 由于在Linux中运行，无需配置跨平台参数、yarn地址等
 		Configuration conf = new Configuration();
-		conf.set("fs.FileSystem", "hdfs://hadoop111:9000/");
-		conf.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
+		
+		// 获取参数
+		String defaultFS = properties.getProperty("HDFS_ADDRESS");
+		String USERNAME = properties.getProperty("USERNAME");
+
 		
 		Job job = Job.getInstance(conf);
 		// 1. 封装参数，jar所在的位置
@@ -47,7 +50,7 @@ public class JobSubmitterLinuxToYarn {
 		Path mrOutputPath = new Path(properties.getProperty("MROUTPUT_PATH"));
 		Path mrInputPath = new Path(properties.getProperty("MRINPUT_PATH"));
 		FileSystem fs = FileSystem.get(
-				new URI(properties.getProperty("HDFS_ADDRESS")), conf, properties.getProperty("USERNAME"));
+				new URI(defaultFS), conf, USERNAME);
 		if( fs.exists(mrOutputPath) ) {
 			fs.delete(mrOutputPath, true);
 		}

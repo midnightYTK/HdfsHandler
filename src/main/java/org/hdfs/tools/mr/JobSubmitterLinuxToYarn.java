@@ -26,7 +26,8 @@ public class JobSubmitterLinuxToYarn {
 	public static void main (String []args) throws IOException, InterruptedException, URISyntaxException, ClassNotFoundException {
 		
 		Properties properties = new Properties();
-		properties.load(JobSubmitterLinuxToYarn.class.getClassLoader().getResourceAsStream("conf.properties"));
+		properties.load(JobSubmitterLinuxToYarn.class.getClassLoader()
+				.getResourceAsStream("conf.properties"));
 		
 		// 由于在Linux中运行，无需配置跨平台参数、yarn地址等
 		Configuration conf = new Configuration();

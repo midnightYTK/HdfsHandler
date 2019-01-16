@@ -44,18 +44,22 @@ public class JobSubmitterAtWindowsLocal {
 		System.exit(res ? 0 : 1);
 
 	}
-
-	public static void delAllFile(File directory) {
-		if (!directory.isDirectory()) {
-			directory.delete();
+	
+	
+	/**
+	 * 删除目录及其子目录、子文件
+	 * @param fileOrDir 传入的文件（可以是文件也可以是目录）
+	 */
+	public static void delAllFile(File fileOrDir) {
+		if ( !fileOrDir.isDirectory() ) {
+			fileOrDir.delete();
 		} else {
-			File[] files = directory.listFiles();
+			File[] files = fileOrDir.listFiles();
 			if (files.length != 0)
 				for (File file : files) {
 					delAllFile(file);
 				}
-			directory.delete();
-			return;
+			fileOrDir.delete();
 		}
 	}
 

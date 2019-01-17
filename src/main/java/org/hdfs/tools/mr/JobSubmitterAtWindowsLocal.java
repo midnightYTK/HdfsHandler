@@ -42,7 +42,7 @@ public class JobSubmitterAtWindowsLocal {
 
 		boolean res = job.waitForCompletion(true);
 		System.exit(res ? 0 : 1);
-
+ 
 	}
 	
 	

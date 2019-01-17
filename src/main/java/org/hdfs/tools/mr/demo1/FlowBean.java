@@ -1,12 +1,13 @@
-package org.hdfs.tools.mr.demo;
+package org.hdfs.tools.mr.demo1;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-import org.apache.hadoop.io.Writable;
+//import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableComparable;
 
-public class FlowBean implements Writable {
+public class FlowBean implements WritableComparable<FlowBean> {
 	
 	private String phone;
 	private int upFlow;
@@ -21,8 +22,7 @@ public class FlowBean implements Writable {
 		this.downFlow = downFlow;
 		this.sumFlow = upFlow + downFlow;
 	}
-
-
+	
 
 	public String getPhone() {
 		return phone;
@@ -68,6 +68,12 @@ public class FlowBean implements Writable {
 	// 
 	public String toSting() {
 		return this.phone + ", " + this.upFlow + ", " + this.downFlow + ", " + this.sumFlow; 
+	}
+	
+	
+	public int compareTo(FlowBean o) {
+		return o.getSumFlow()-this.getSumFlow()==0 ?
+				this.getPhone().compareTo(o.getPhone()) : o.getSumFlow()-this.getSumFlow();
 	}
 	
 	

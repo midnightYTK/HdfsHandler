@@ -1,4 +1,4 @@
-package org.hdfs.tools.mr.demo;
+package org.hdfs.tools.mr.demo1;
 
 import java.io.IOException;
 

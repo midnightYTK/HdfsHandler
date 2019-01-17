@@ -39,7 +39,7 @@ public class PageCountStep1 {
 		job.setJarByClass(PageCountStep1.class);
 		
 		job.setMapperClass(PageCountStep1Mapper.class);
-		job.setReducerClass(PageCountStep1Reduce.class);
+		job.setReducerClass(PageCountStep1Reducer.class);
 		
 		job.setMapOutputKeyClass(Text.class);
 		job.setMapOutputValueClass(IntWritable.class);
@@ -93,7 +93,7 @@ class PageCountStep1Mapper extends Mapper<LongWritable, Text, Text, IntWritable>
 	}
 }
 
-class PageCountStep1Reduce extends Reducer<Text, IntWritable, Text, IntWritable> {
+class PageCountStep1Reducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 	
 	@Override
 	protected void reduce(Text key, Iterable<IntWritable> values,

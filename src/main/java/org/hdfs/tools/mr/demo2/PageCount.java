@@ -13,6 +13,11 @@ public class PageCount implements WritableComparable<PageCount>{
 	
 	public PageCount() { }
 	
+	public PageCount(String uri, int count) {
+		this.uri = uri;
+		this.count = count;
+	}
+	
 	public void setPageCount(String uri, int count) {
 		this.uri = uri;
 		this.count = count;

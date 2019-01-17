@@ -18,6 +18,11 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
+/**
+ * 原始数据测试为 手机号码，uri，上下行流量，乱七八糟的数据
+ * @author TheDK
+ *
+ */
 public class PageCountStep1 {
 	
 	public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException, ClassNotFoundException {

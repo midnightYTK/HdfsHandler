@@ -49,6 +49,7 @@ public class PageCount implements WritableComparable<PageCount>{
 	}
 	
 	
+	@Override
 	public String toString() {
 		return this.uri + ", " + this.count;
 	}

@@ -35,6 +35,13 @@
 		<artifactId>hadoop-client</artifactId>
 		<version>2.6.4</version>
 	</dependency>
+	
+	
+	<dependency>
+		<groupId>org.apache.thrift</groupId>
+		<artifactId>libthrift</artifactId>
+		<version>0.12.0</version>
+	</dependency>
     
     
   </dependencies>

@@ -1,7 +1,5 @@
 package org.hdfs.tools.fileHandler;
 
-import org.apache.hadoop.fs.FileSystem;
-
 /**
  * 本接口实现了对HDFS中的文件读 写 修改 重命名，目录的增 删 改
  * @author TheDK
